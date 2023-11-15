@@ -1,0 +1,112 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="mlwebstyle2.css">
+
+  <script>
+    function dateToOrdinal() {
+      var slope = 7120.068013414832
+      var intercept = 7530710.673613298
+      var inputElement = document.getElementById('inputDate');
+      var inputDate = new Date(inputElement.value);
+
+      var baseDate = new Date('2021-01-01');
+      var dayDifference = Math.floor((inputDate - baseDate) / (24 * 60 * 60 * 1000));
+
+      var predictedvalue = slope * dayDifference + intercept;
+      document.getElementById('result').innerHTML = 'Predicted Receipt Total ' + predictedvalue;
+    }
+  </script>
+</head>
+
+
+<body>
+  <header>
+    <div class = "mainthings">
+      <h1>Reciept Totals Machine Learning Project</h1>
+    </div>
+
+  </header>
+
+
+
+
+	<div class="mainthings">
+		<div class="">
+				<article class="centersection">
+					<header>
+						<h2>
+              My Initial Attempts To Parse The Data
+
+            </h2>
+					</header>
+
+
+					<content>
+						<p>To start this project, my first goal was to place all of the points in a line. I used the csv reader function to populate the X and Y axes.
+              It was fairly clear that the best path forward was to generate some sort of linear regression model. As can bee seen, this line is haphazard with
+              daily variability but it's still evident that a linear relationship appears to exist.
+
+            </p>
+
+
+					</content>
+          <img src="Updated Initial Plot.png" >
+				</article>
+
+				<article class="centersection">
+					<header>
+						<h2>Generating A Linear Regression</h2>
+					</header>
+
+
+					<content>
+						<p>
+
+              The generaal concept of a linear regression works by attempting to reduce the variance among points to reach a general trend line. In this case all we need to do is calculate out a slope and an intercept.
+              In order to do this, I changed all of the dates to ordinal values (0 to 365 so on and so forth). The python numpy module has a "Polyfit" function that can take two matrices and develop the aformentioned
+              slope and intercept of a given point. Below is the graph built out from this function overlayed against the scatter plot of prior data. As you can see, the line eliminates a good deal of daily variability
+              while appearing to reach a healthy medium relative to the data inputs.
+
+
+            </p>
+
+            <h3>
+              My Slope was calculated at 7120.068013414832
+            </h3>
+
+            <h3>
+              My intercept was calculated at 7530710.673613298
+            </h3>
+
+					</content>
+          <img src="Addendum Scatter Plot With Regression Line.png" >
+
+				</article>
+        <article class="centersection">
+					<header>
+						<h2>Predicted Values Based On Date</h2>
+					</header>
+
+
+					<content>
+            <p>
+              In order to make this an interactive example, I've used JavaScript to allow you to enter in a given date. It will use the above aformentioned slope and intercepts
+              to create an estimated receipt value for a given day. This allows one to extrapolate this data indefinitely!
+            </p>
+
+            <label for="inputDate">Enter a date (YYYY-MM-DD):</label>
+            <input type="text" id="inputDate" placeholder="YYYY-MM-DD">
+            <button onclick="dateToOrdinal()">Predicted Value On Given Date</button>
+            <p id="result"></p>
+
+
+
+					</content>
+
+				</article>
+		</div>
+
+
+	</div>
+
+
+</body>
